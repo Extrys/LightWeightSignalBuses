@@ -17,10 +17,12 @@ public static class SignalBus<T>
 
 	public static void Fire(T t) => action?.Invoke(t);
 
+	public static void AbstractFire(T t) => SignalBus.AbstractFire<T>(t);
+
 	public static void Unsusbscribe(Action<T> action) => SignalBus<T>.action -= action;
 
 	//Subscription registered for Lightweight version
-	public class Subscription : IDisposable
+	public class SignalSubscription : IDisposable
 	{
 		Action<T> bindedAction;
 		public SignalSubscription(Action<T> bindedAction) => this.bindedAction = bindedAction;

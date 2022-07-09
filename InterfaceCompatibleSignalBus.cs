@@ -44,7 +44,7 @@ public static class SignalBus
 	static Type[] GetOrCreateInterfaceArrayForType(Type type)
 	{
 		Type[] interfaces;
-		if (cachedInterfacedByType.TryGetValue(paramType, out interfaces))
+		if (cachedInterfacedByType.TryGetValue(type, out interfaces))
 			return interfaces;
 
 		interfaces = type.GetInterfaces();
@@ -60,7 +60,7 @@ public static class SignalBus
 
 
 	//Subscription registered for Interface compatible version
-	public class Subscription : IDisposable
+	public class SignalSubscription : IDisposable
 	{
 		Type paramType;
 		Action<object> bindedAction;
