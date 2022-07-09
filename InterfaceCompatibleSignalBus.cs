@@ -36,8 +36,6 @@ public static class SignalBus
 
 	public static void AbstractFire<T>(T t)
 	{
-		Fire(t);
-
 		Action<object> actionFromDic;
 		Type[] types = GetOrCreateInterfaceArrayForType(typeof(T));
 		foreach (Type type in types)
