@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 ///<Summary>Interface compatible version</Summary>
 ///<remarks>dont use with struct signals to avoid garbage generation by boxing </remarks>
 public static class SignalBus
 {
-	static Dictionary<Type, Action<object>> actions;
-	static Dictionary<Type, Type[]> cachedInterfacedByType;
+	static Dictionary<Type, Action<object>> actions = new Dictionary<Type, Action<object>>();
+	static Dictionary<Type, Type[]> cachedInterfacedByType = new Dictionary<Type, Type[]>();
 
 	public static IDisposable Subscribe<T>(Action<T> action)
 	{
@@ -25,7 +24,14 @@ public static class SignalBus
 	{
 		if (actions.TryGetValue(typeof(T), out var action))
 			action(t);
-		else Debug.LogError($"Type of {typeof(T)} is trying to be fired as signal but is not subscribed anywhere");
+		else
+		{
+#if UNITY_STANDALONE
+			UnityEngine.Debug.LogError($"Type of {typeof(T)} is trying to be fired as signal but is not subscribed anywhere");
+#else
+			Console.WriteLine($"Type of {typeof(T)} is trying to be fired as signal but is not subscribed anywhere");
+#endif
+		}
 	}
 
 	public static void AbstractFire<T>(T t)
