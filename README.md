@@ -104,12 +104,12 @@ public class HpBar : MonoBehaviour
 //The signal types
 public struct SignalPlayerDamaged : ISignalPlayerHpChanged
 {
-    ISignalPlayerHpChanged.PlayerHp => playerHp;
+    float ISignalPlayerHpChanged.PlayerHp => playerHp;
     public float playerHp;
 }
 public struct SignalPlayerDamaged : ISignalPlayerHpChanged
 {
-    ISignalPlayerHpChanged.PlayerHp => playerHp;
+    float ISignalPlayerHpChanged.PlayerHp => playerHp;
     public float playerHp;
 }
 
