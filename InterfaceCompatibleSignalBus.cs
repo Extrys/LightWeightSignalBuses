@@ -17,7 +17,7 @@ public static class SignalBus
 			actionGroup += objectAction;
 		else actions.Add(paramType, objectAction);
 
-		return new SignalSubscription(paramType, objectAction);
+		return new Signal(paramType, objectAction);
 	}
 
 	public static void Fire<T>(T t)
@@ -64,12 +64,12 @@ public static class SignalBus
 
 
 	//Subscription registered for Interface compatible version
-	public class SignalSubscription : IDisposable
+	public class Signal : IDisposable
 	{
 		Type paramType;
 		Action<object> bindedAction;
 
-		public SignalSubscription(Type paramType, Action<object> bindedAction)
+		public Signal(Type paramType, Action<object> bindedAction)
 		{
 			this.paramType = paramType;
 			this.bindedAction = bindedAction;
