@@ -114,7 +114,7 @@ public struct SignalPlayerDamaged : ISignalPlayerHpChanged
 }
 
 //The interface for the signals
-public struct ISignalPlayerHpChanged
+public interface ISignalPlayerHpChanged
 {
     float PlayerHp { get; }
 }
