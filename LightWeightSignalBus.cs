@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using UnityEngine;
 
 
 /// <summary>Lightweight version of SignalBus</summary>
@@ -12,7 +10,7 @@ public static class SignalBus<T>
 	public static IDisposable Subscribe(Action<T> action)
 	{
 		SignalBus<T>.action += action;
-		return new SignalSubscription(action);
+		return new Subscription(action);
 	}
 
 	public static void Fire(T t) => action?.Invoke(t);
@@ -23,7 +21,7 @@ public static class SignalBus<T>
 	public class Subscription : IDisposable
 	{
 		Action<T> bindedAction;
-		public SignalSubscription(Action<T> bindedAction) => this.bindedAction = bindedAction;
+		public Subscription(Action<T> bindedAction) => this.bindedAction = bindedAction;
 		public void Dispose() => Unsusbscribe(bindedAction);
 	}
 }
