@@ -7,7 +7,7 @@ using UnityEngine;
 public static class SignalBus
 {
 	static Dictionary<Type, Action<object>> actions;
-	static Dictionary<Type, Type[]> cachedInterfacedByType;
+	static Dictionary<Type, Type[]> cachedInterfacesByType;
 
 	public static IDisposable Subscribe<T>(Action<T> action)
 	{
@@ -44,11 +44,11 @@ public static class SignalBus
 	static Type[] GetOrCreateInterfaceArrayForType(Type type)
 	{
 		Type[] interfaces;
-		if (cachedInterfacedByType.TryGetValue(paramType, out interfaces))
+		if (cachedInterfacesByType.TryGetValue(paramType, out interfaces))
 			return interfaces;
 
 		interfaces = type.GetInterfaces();
-		cachedInterfacedByType.Add(type, interfaces);
+		cachedInterfacesByType.Add(type, interfaces);
 		return interfaces;
 	}
 
