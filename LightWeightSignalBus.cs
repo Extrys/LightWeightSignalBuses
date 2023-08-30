@@ -22,8 +22,8 @@ public static class SignalBus<T>
 	//Subscription registered for Lightweight version
 	public class Subscription : IDisposable
 	{
-		Action<T> bindedAction;
-		public SignalSubscription(Action<T> bindedAction) => this.bindedAction = bindedAction;
-		public void Dispose() => Unsusbscribe(bindedAction);
+		Action<T> boundAction;
+		public SignalSubscription(Action<T> boundAction) => this.boundAction = boundAction;
+		public void Dispose() => Unsusbscribe(boundAction);
 	}
 }
