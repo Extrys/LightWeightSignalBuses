@@ -1,6 +1,6 @@
 # LightWeightSignalBuses
-These are just a couple of scripts used mainly to use as messaging system, this sistems uses types and the variables wrapped on these types
-this messaging system has been inspired by Zenject SignalBus,and also supports signal interfaces in the same way that the "AbstractSignals" feature i added in zenject
+These are just a couple of scripts used mainly to use as messaging system, these systems uses types and the variables wrapped on these types
+this messaging system has been inspired by Zenject SignalBus,and also supports signal interfaces in the same way that the "AbstractSignals" feature i added in Zenject/Extenject, [https://github.com/modesttree/Zenject/pull/91](see mentioned pull request about Abstract Signals)
 
 fast integration and easy to use, perfect for light projects.
 
