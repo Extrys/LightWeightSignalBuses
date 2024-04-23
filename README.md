@@ -109,7 +109,7 @@ public struct SignalPlayerDamaged : ISignalPlayerHpChanged
     float ISignalPlayerHpChanged.PlayerHp => playerHp;
     public float playerHp;
 }
-public struct SignalPlayerDamaged : ISignalPlayerHpChanged
+public struct SignalPlayerHealed : ISignalPlayerHpChanged
 {
     float ISignalPlayerHpChanged.PlayerHp => playerHp;
     public float playerHp;
