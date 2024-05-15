@@ -18,7 +18,7 @@ public static class SignalBus
 			actionGroup += objectAction;
 		else actions.Add(paramType, objectAction);
 
-		return new SignalSubscription(paramType, objectAction);
+		return new Subscription(paramType, objectAction);
 	}
 
 	public static void Fire<T>(T t)
@@ -44,7 +44,7 @@ public static class SignalBus
 	static Type[] GetOrCreateInterfaceArrayForType(Type type)
 	{
 		Type[] interfaces;
-		if (cachedInterfacesByType.TryGetValue(paramType, out interfaces))
+		if (cachedInterfacesByType.TryGetValue(type, out interfaces))
 			return interfaces;
 
 		interfaces = type.GetInterfaces();
@@ -65,7 +65,7 @@ public static class SignalBus
 		Type paramType;
 		Action<object> bindedAction;
 
-		public SignalSubscription(Type paramType, Action<object> bindedAction)
+		public Subscription(Type paramType, Action<object> bindedAction)
 		{
 			this.paramType = paramType;
 			this.bindedAction = bindedAction;
