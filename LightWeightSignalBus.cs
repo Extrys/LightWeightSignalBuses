@@ -12,7 +12,7 @@ public static class SignalBus<T>
 	public static IDisposable Subscribe(Action<T> action)
 	{
 		SignalBus<T>.action += action;
-		return new SignalSubscription(action);
+		return new Subscription(action);
 	}
 
 	public static void Fire(T t) => action?.Invoke(t);
@@ -23,7 +23,7 @@ public static class SignalBus<T>
 	public class Subscription : IDisposable
 	{
 		Action<T> boundAction;
-		public SignalSubscription(Action<T> boundAction) => this.boundAction = boundAction;
+		public Subscription(Action<T> boundAction) => this.boundAction = boundAction;
 		public void Dispose() => Unsusbscribe(boundAction);
 	}
 }
