@@ -7,16 +7,17 @@ using UnityEngine;
 public static class SignalBus
 {
 	static Dictionary<Type, Action<object>> actions;
+
 	static Dictionary<Type, Type[]> cachedInterfacesByType;
 
 	public static IDisposable Subscribe<T>(Action<T> action)
 	{
-
 		Action<object> objectAction = new Action<object>(o => action((T)o));
 		Type paramType = typeof(T);
-		if (actions.TryGetValue(paramType, out Action<object> actionGroup))
-			actionGroup += objectAction;
-		else actions.Add(paramType, objectAction);
+		if (actions.ContainsKey(paramType))
+			actions[paramType] += objectAction;
+		else
+			actions.Add(paramType, objectAction);
 
 		return new Subscription(paramType, objectAction);
 	}
@@ -28,16 +29,17 @@ public static class SignalBus
 		else Debug.LogError($"Type of {typeof(T)} is trying to be fired as signal but is not subscribed anywhere");
 	}
 
-	public static void AbstractFire<T>(T t)
+	public static void AbstractFire<T>(T t, bool includeConcrete = false)
 	{
-		Fire(t);
+		if (includeConcrete)
+			Fire(t);
 
 		Action<object> actionFromDic;
 		Type[] types = GetOrCreateInterfaceArrayForType(typeof(T));
 		foreach (Type type in types)
 		{
 			if (actions.TryGetValue(type, out actionFromDic))
-				actionFromDic(t);
+				actionFromDic?.Invoke(t);
 		}
 	}
 
@@ -52,26 +54,24 @@ public static class SignalBus
 		return interfaces;
 	}
 
-	public static void Unsusbscribe(Type paramType, Action<object> action)
+	static void Unsusbscribe(Type paramType, Action<object> action)
 	{
-		if (actions.TryGetValue(paramType, out Action<object> actionFromDic))
-			actionFromDic -= action;
+		if (actions.ContainsKey(paramType))
+			actions[paramType] -= action;
 	}
-
 
 	//Subscription registered for Interface compatible version
-	public class Subscription : IDisposable
+	class Subscription : IDisposable
 	{
 		Type paramType;
-		Action<object> bindedAction;
+		Action<object> boundAction;
 
-		public Subscription(Type paramType, Action<object> bindedAction)
+		public Subscription(Type paramType, Action<object> boundAction)
 		{
 			this.paramType = paramType;
-			this.bindedAction = bindedAction;
+			this.boundAction = boundAction;
 		}
 
-		public void Dispose() => Unsusbscribe(paramType, bindedAction);
+		public void Dispose() => Unsusbscribe(paramType, boundAction);
 	}
 }
-
