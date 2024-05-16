@@ -57,9 +57,7 @@ public static class SignalBus
 	static void Unsusbscribe(Type paramType, Action<object> action)
 	{
 		if (actions.ContainsKey(paramType))
-		{
 			actions[paramType] -= action;
-		}
 	}
 
 	//Subscription registered for Interface compatible version
