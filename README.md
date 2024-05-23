@@ -2,7 +2,7 @@
 These are just a couple of scripts used mainly to use as messaging system, these systems uses types and the variables wrapped on these types
 this messaging system has been inspired by Zenject SignalBus,and also supports signal interfaces in the same way that the "AbstractSignals" feature i added in Zenject/Extenject (see mentioned pull request about Abstract Signals here https://github.com/modesttree/Zenject/pull/91)
 
-Also comes with a little CompositeDisposable implementation inspired from UniRx/CysharpUnitask
+Also comes with a little CompositeDisposable implementation inspired from UniRx/CysharpUnitask.
 
 fast integration and easy to use, perfect for light projects.
 
